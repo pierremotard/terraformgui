@@ -20,16 +20,9 @@ public class Main extends Application {
 		    Parent root = FXMLLoader.load(getClass().getResource("view/Auth.fxml"));
 		    primaryStage.setTitle("Terraform GUI");
 			Scene scene = new Scene(root,800,500);
-			
-			Parent root2 = FXMLLoader.load(getClass().getResource("view/Network.fxml"));
-			Scene scene2 = new Scene(root2,800,500);
-			
+
 			primaryStage.setScene(scene);
-            primaryStage.show();
-			
-			
 			primaryStage.show();
-			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
