@@ -1,6 +1,7 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Group;
@@ -13,6 +14,11 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 
+    
+    public static int nbSubnets = 0;
+    
+    
+    
     
 	@Override
 	public void start(Stage primaryStage) {
