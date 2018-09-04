@@ -16,16 +16,45 @@ public class Subnet {
     
     public Subnet(String name, String ad, boolean prohibitIp, String cidrBlock, SecurityList secList) {
         this.name = name;
-        AD = ad;
+        setAD(ad);
         this.prohibitIp.set(prohibitIp);
-        this.cidrBlock = cidrBlock;
+        this.setCidrBlock(cidrBlock);
         this.secList.set(secList);
     }
+    
+    public Subnet(String name) {
+        this.name = name;
+    }
+    
     
     // Setters and Getters
     
     public String getName() {
         return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String toString() {
+        return name;
+    }
+
+    public String getAD() {
+        return AD;
+    }
+
+    public void setAD(String aD) {
+        AD = aD;
+    }
+
+    public String getCidrBlock() {
+        return cidrBlock;
+    }
+
+    public void setCidrBlock(String cidrBlock) {
+        this.cidrBlock = cidrBlock;
     }
     
 

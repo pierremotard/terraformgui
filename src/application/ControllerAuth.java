@@ -31,7 +31,6 @@ public class ControllerAuth {
     @FXML private TextField sshPublicField;
     @FXML private TextField sshPrivateField;
     @FXML private TextField vcnCidrField;
-    @FXML private TextField numberSubnetField;
     
     
     public void nextButtonClicked(ActionEvent event) throws IOException {
@@ -59,7 +58,7 @@ public class ControllerAuth {
             writer.write("ssh_public_key_path = \"" + sshPublicField.getText() + "\" \n");
             writer.write("ssh_private_key_path = \"" + sshPrivateField.getText() + "\" \n" + "\n");
             writer.write("### VCN" + "\n");
-            writer.write("VCN-CIDR = \"" + vcnCidrField.getText() + "\" \n");
+            
             
         }
         
@@ -82,9 +81,6 @@ public class ControllerAuth {
     }
     public String getCompartment() {
         return compartmentField.getText();
-    }
-    public String getNumberSubnets() {
-        return numberSubnetField.getText();
     }
 
 }

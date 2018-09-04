@@ -31,12 +31,14 @@ public class ControllerSubnet {
     @FXML private ChoiceBox<Boolean> prohibitIpChoice;
     @FXML private TextField cidrBlockField;
     @FXML private ChoiceBox<SecurityList> securityListChoice;
-    @FXML private TextField dhcpOptionsField;
+    @FXML private ChoiceBox<String> dhcpOptionsChoice;
     
     
     public static ObservableList<Boolean> truefalselist = FXCollections.observableArrayList(true, false);
     
     public static ObservableList<Subnet> subnetList = FXCollections.observableArrayList();
+    
+    public static ObservableList<String> dhcpList = FXCollections.observableArrayList("default");
     
     @FXML
     public void initialize() {
@@ -45,20 +47,30 @@ public class ControllerSubnet {
         
         securityListChoice.setItems(ControllerSecurityList.getSecList());
         
+        dhcpOptionsChoice.setItems(dhcpList);
+        dhcpOptionsChoice.setValue(dhcpList.get(0));
     }
+    
     
     @FXML
     public void addSubnetClicked(ActionEvent event) throws IOException {
         Parent networkParent = FXMLLoader.load(getClass().getResource("view/Subnet.fxml"));
         Scene subnetScene = new Scene(networkParent);
         
+        subnetList.add(new Subnet(subnetNameField.getText()));
+        
+        /*
         subnetList.add(new Subnet(subnetNameField.getText(), ADField.getText(), prohibitIpChoice.getValue(), 
                         cidrBlockField.getText(), securityListChoice.getValue()));
-        
+        */
         // Gets stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(subnetScene);
         window.show();
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("vars-values.auto.tfvars", true))) {
+            writer.write(subnetNameField.getText() + "-CIDR = \"" + cidrBlockField.getText() + "\" \n");
+        }
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("resource.tf", true))) {
             writer.write(
@@ -72,7 +84,7 @@ public class ControllerSubnet {
                     "  vcn_id = \"${oci_core_virtual_network." + ControllerNetwork.getVcn() + ".id}\"\n" + 
                     "  route_table_id = \"${oci_core_route_table.routetable.id}\"\n" + 
                     "  security_list_ids = [\"${oci_core_security_list." + securityListChoice.getValue() + ".id}\"]\n" + 
-                    "  dhcp_options_id = \"${oci_core_virtual_network.tf-demo01-vcn.default_dhcp_options_id}\"\n" + 
+                    "  dhcp_options_id = \"${oci_core_virtual_network." + ControllerNetwork.getVcn() + ".default_dhcp_options_id}\"\n" + 
                     "}\n\n" + 
                     "");
             
@@ -81,12 +93,12 @@ public class ControllerSubnet {
     }
     
     public void nextButtonClicked(ActionEvent event) throws IOException {
-        Parent networkParent = FXMLLoader.load(getClass().getResource("view/Subnet.fxml"));
-        Scene subnetScene = new Scene(networkParent);
+        Parent subnetParent = FXMLLoader.load(getClass().getResource("view/Compute.fxml"));
+        Scene computeScene = new Scene(subnetParent);
         
         // Gets stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(subnetScene);
+        window.setScene(computeScene);
         window.show();
         
         

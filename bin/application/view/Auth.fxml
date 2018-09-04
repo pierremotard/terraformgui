@@ -1,59 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="-Infinity" prefHeight="578.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControllerAuth">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControllerAuth">
    <children>
-      <GridPane layoutX="46.0" layoutY="56.0" prefHeight="473.0" prefWidth="516.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Tenancy OCID" />
-            <Label text="User OCID" GridPane.rowIndex="1" />
-            <Label text="Fingerprint" GridPane.rowIndex="2" />
-            <Label text="Private Key path" GridPane.rowIndex="3" />
-            <Label text="Region" GridPane.rowIndex="4" />
-            <Label text="Compartment OCID" GridPane.rowIndex="5" />
-            <Label text="Availability Domain (1, 2 or 3)" GridPane.rowIndex="6" />
-            <Label text="SSH public key path" GridPane.rowIndex="7" />
-            <Label text="SSH private key path" GridPane.rowIndex="8" />
-            <Label text="VCN CIDR" GridPane.rowIndex="9" />
-            <TextField fx:id="tenancyField" GridPane.columnIndex="1" />
-            <TextField fx:id="userField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="fingerprintField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="keyPathField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="regionField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="compartmentField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="ADField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="sshPublicField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="sshPrivateField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="vcnCidrField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-         </children>
-      </GridPane>
-      <Button layoutX="273.0" layoutY="540.0" mnemonicParsing="false" onAction="#nextButtonClicked" prefHeight="27.0" prefWidth="54.0" text="Next">
-         <font>
-            <Font size="14.0" />
-         </font></Button>
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <center>
+            <GridPane prefHeight="473.0" prefWidth="516.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Tenancy OCID" />
+                  <Label text="User OCID" GridPane.rowIndex="1" />
+                  <Label text="Fingerprint" GridPane.rowIndex="2" />
+                  <Label text="Private Key path" GridPane.rowIndex="3" />
+                  <Label text="Region" GridPane.rowIndex="4" />
+                  <Label text="Compartment OCID" GridPane.rowIndex="5" />
+                  <Label text="Availability Domain (1, 2 or 3)" GridPane.rowIndex="6" />
+                  <Label text="SSH public key path" GridPane.rowIndex="7" />
+                  <Label text="SSH private key path" GridPane.rowIndex="8" />
+                  <TextField fx:id="tenancyField" GridPane.columnIndex="1" />
+                  <TextField fx:id="userField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="fingerprintField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="keyPathField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="regionField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="compartmentField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="ADField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="sshPublicField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="sshPrivateField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+               </children>
+            </GridPane>
+         </center>
+         <bottom>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <buttons>
+                  <Button mnemonicParsing="false" onAction="#nextButtonClicked" prefHeight="27.0" prefWidth="54.0" text="Next">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+         </bottom>
+         <top>
+            <Label text="Authentication" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+         </top>
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" />
+         </padding>
+      </BorderPane>
    </children>
 </AnchorPane>
