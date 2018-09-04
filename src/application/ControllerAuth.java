@@ -42,7 +42,7 @@ public class ControllerAuth {
         window.setScene(networkScene);
         window.show();
         
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("vars-values.auto.tfvars"), "utf-8"))) {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("cluster-config/vars-values.auto.tfvars"), "utf-8"))) {
             writer.write("### Authentication details" + "\n");
             writer.write("tenancy_ocid = \"" + getTenancy() + "\" \n");
             writer.write("user_ocid = \"" + getUser() + "\" \n");

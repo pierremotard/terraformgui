@@ -62,22 +62,22 @@ public class ControllerSecurityList {
         window.setScene(securityListScene);
         window.show();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("resource.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/resource.tf", true))) {
             writer.write("\n" + 
                     "resource \"oci_core_security_list\" \"" + securityListNameField.getText() + "\" {\n" + 
                     "  compartment_id = \"${var.compartment_id}\"\n" + 
                     "  display_name = \"" + securityListNameField.getText() + "\"\n" + 
                     "  vcn_id = \"${oci_core_virtual_network." + ControllerNetwork.getVcn() + ".id}\"\n" + 
-                    "  egress_security_rules = [\n" + 
-                    "    {\n" + 
-                    "    protocol = \"all\"\n" + 
-                    "    destination = \"0.0.0.0/0\"\n" + 
-                    "    }\n" + 
-                    "  ]\n" + 
                     "  ingress_security_rules = [\n" + 
                     "    {\n" + 
                     "    protocol = \"all\"\n" + 
                     "    source = \"${var.VCN-CIDR}\"\n" + 
+                    "    }\n" + 
+                    "  ]\n" + 
+                    "  egress_security_rules = [\n" + 
+                    "    {\n" + 
+                    "    protocol = \"all\"\n" + 
+                    "    destination = \"0.0.0.0/0\"\n" + 
                     "    }\n" + 
                     "  ]\n" + 
                     "}\n" + 

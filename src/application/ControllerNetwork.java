@@ -41,11 +41,11 @@ public class ControllerNetwork {
         
         vcnName = vcnField.getText();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("vars-values.auto.tfvars", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/vars-values.auto.tfvars", true))) {
             writer.write("VCN-CIDR = \"" + vcnCidrField.getText() + "\" \n");
         }
         
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resource.tf"), "utf-8"))) {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("cluster-config/resource.tf"), "utf-8"))) {
             writer.write("# Create a new VCN\n" + 
                     "resource \"oci_core_virtual_network\" \"" + vcnField.getText() + "\" {\n" + 
                     "  cidr_block = \"${var.VCN-CIDR}\"\n" + 

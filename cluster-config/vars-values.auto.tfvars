@@ -1,5 +1,5 @@
 ### Authentication details
-tenancy_ocid = "" 
+tenancy_ocid = "tenn" 
 user_ocid = "" 
 fingerprint = "" 
 private_key_path = "" 
@@ -18,6 +18,3 @@ ssh_public_key_path = ""
 ssh_private_key_path = "" 
 
 ### VCN
-VCN-CIDR = "" 
-VCN-CIDR = "" 
-VCN-CIDR = "" 

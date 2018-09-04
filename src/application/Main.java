@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,10 @@ public class Main extends Application {
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			File terraform_basic = new File("cluster-config");
+			terraform_basic.mkdir();
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();

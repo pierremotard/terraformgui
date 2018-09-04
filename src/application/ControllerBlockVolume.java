@@ -56,7 +56,7 @@ public class ControllerBlockVolume {
         window.setScene(bvScene);
         window.show();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("resource.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/resource.tf", true))) {
             writer.write(
                     "resource \"oci_core_volume\" \"" + blockVolumeNameField.getText() + "\" {\n" + 
                     "  count = \"" + countField.getText() + "\"\n" + 

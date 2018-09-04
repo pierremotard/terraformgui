@@ -48,7 +48,7 @@
                   <Label text="DNS label" GridPane.rowIndex="1" />
                   <TextField fx:id="dnsLabelField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Availability Domain" GridPane.rowIndex="2" />
-                  <TextField fx:id="ADField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="ADChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Prohibit public IP " GridPane.rowIndex="3" />
                   <ChoiceBox fx:id="prohibitIpChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="CIDR Block" GridPane.rowIndex="4" />
@@ -56,11 +56,8 @@
                   <Label text="Security list" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="securityListChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="DHCP Options" GridPane.rowIndex="6" />
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Compartment " GridPane.rowIndex="7" />
-                  <Label text="the compartment id" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <Label text="VCN" GridPane.rowIndex="8" />
-                  <Label text="the vcn id" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <ChoiceBox fx:id="dhcpOptionsChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  
                </children>
             </GridPane>
          </center>

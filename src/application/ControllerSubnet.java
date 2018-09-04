@@ -27,7 +27,7 @@ public class ControllerSubnet {
     
     @FXML private TextField subnetNameField;
     @FXML private TextField dnsLabelField;
-    @FXML private TextField ADField;
+    @FXML private ChoiceBox<String> ADChoice;
     @FXML private ChoiceBox<Boolean> prohibitIpChoice;
     @FXML private TextField cidrBlockField;
     @FXML private ChoiceBox<SecurityList> securityListChoice;
@@ -38,6 +38,8 @@ public class ControllerSubnet {
     
     public static ObservableList<Subnet> subnetList = FXCollections.observableArrayList();
     
+    public static ObservableList<String> ADList = FXCollections.observableArrayList("1", "2", "3");
+    
     public static ObservableList<String> dhcpList = FXCollections.observableArrayList("default");
     
     @FXML
@@ -46,6 +48,9 @@ public class ControllerSubnet {
         prohibitIpChoice.setItems(truefalselist);
         
         securityListChoice.setItems(ControllerSecurityList.getSecList());
+        
+        ADChoice.setItems(ADList);
+        ADChoice.setValue(ADList.get(0));
         
         dhcpOptionsChoice.setItems(dhcpList);
         dhcpOptionsChoice.setValue(dhcpList.get(0));
@@ -68,14 +73,14 @@ public class ControllerSubnet {
         window.setScene(subnetScene);
         window.show();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("vars-values.auto.tfvars", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/vars-values.auto.tfvars", true))) {
             writer.write(subnetNameField.getText() + "-CIDR = \"" + cidrBlockField.getText() + "\" \n");
         }
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("resource.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/resource.tf", true))) {
             writer.write(
                     "resource \"oci_core_subnet\" \"" + subnetNameField.getText() + "\" {\n" + 
-                    "  availability_domain = \"${lookup(data.oci_identity_availability_domains.ADs.availability_domains[var.AD - 1],\"name\")}\"\n" + 
+                    "  availability_domain = \"${lookup(data.oci_identity_availability_domains.ADs.availability_domains[var.AD - " + ADChoice.getValue() + "],\"name\")}\"\n" + 
                     "  prohibit_public_ip_on_vnic = " + prohibitIpChoice.getValue() + "\n" + 
                     "  cidr_block = \"${var.subnetDMZ-CIDR}\"\n" + 
                     "  display_name = \"" + subnetNameField.getText() + "\"\n" + 

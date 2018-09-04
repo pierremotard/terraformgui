@@ -63,7 +63,7 @@ public class ControllerCompute {
         window.setScene(instanceScene);
         window.show();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("resource.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/resource.tf", true))) {
             writer.write(
                     "resource \"oci_core_instance\" \"" + instanceNameField.getText() + "\" {\n" + 
                     "  availability_domain = \"${lookup(data.oci_identity_availability_domains.ADs.availability_domains[var.AD - 1],\"name\")}\"\n" + 
