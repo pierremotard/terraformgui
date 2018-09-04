@@ -24,11 +24,20 @@ public class ControllerSecurityList {
     }
     
     @FXML private TextField securityListNameField;
-    @FXML private TextField sourceCidrIngressField;
+    
     @FXML private ChoiceBox<String> ipProtocolIngressChoice;
-    @FXML private TextField sourceCidrEgressField;
+    @FXML private TextField sourceCidrIngressField;
+    @FXML private ChoiceBox<Boolean> statelessIngressChoice;
+    @FXML private TextField minRangeIngressField;
+    @FXML private TextField maxRangeIngressField;
+
+    
     @FXML private ChoiceBox<String> ipProtocolEgressChoice;
-    @FXML private Button egressButton;
+    @FXML private TextField destinationCidrEgressField;
+    @FXML private ChoiceBox<Boolean> statelessEgressChoice;
+    @FXML private TextField minRangeEgressField;
+    @FXML private TextField maxRangeEgressField;
+    
     
     public static ObservableList<SecurityList> allSecurityLists = FXCollections.observableArrayList();
     
@@ -36,15 +45,52 @@ public class ControllerSecurityList {
         return allSecurityLists;
     }
     
-    ObservableList<String> ipProtocolslist = FXCollections.observableArrayList("All protocols", "TCP");
+    public ObservableList<IngressRule> ingressRulesList = FXCollections.observableArrayList();
+    public ObservableList<EgressRule> egressRulesList = FXCollections.observableArrayList();
+    
+    public static ObservableList<String> ipProtocolslist = FXCollections.observableArrayList("all", "tcp", "udp", "imcp");
+    public static ObservableList<Boolean> statelessList = FXCollections.observableArrayList(true, false);
+
+    
     
     @FXML
     public void initialize() {
-        //ipProtocolIngressChoice.setValue(ipProtocolslist.get(0));
+        ipProtocolIngressChoice.setValue(ipProtocolslist.get(0));
         ipProtocolIngressChoice.setItems(ipProtocolslist);
+        statelessIngressChoice.setItems(statelessList);
         
        // ipProtocolEgressChoice.setValue(ipProtocolslist.get(0));
         ipProtocolEgressChoice.setItems(ipProtocolslist);
+        statelessEgressChoice.setItems(statelessList);
+    }
+    
+    @FXML
+    public void addIngressRuleClicked() throws IOException {
+        IngressRule anIR = new IngressRule(ipProtocolIngressChoice.getValue(), sourceCidrIngressField.getText(), statelessIngressChoice.getValue(), minRangeIngressField.getText(), maxRangeIngressField.getText());
+        /*
+        System.out.println(ipProtocolIngressChoice.getValue());
+        System.out.println(sourceCidrIngressField.getText());
+        System.out.println(statelessIngressChoice.getValue());
+        
+        IngressRule anIR = new IngressRule(ipProtocolIngressChoice.getValue(), sourceCidrIngressField.getText(), statelessIngressChoice.getValue());
+        */
+        ingressRulesList.add(anIR);
+        
+        sourceCidrIngressField.clear();
+        minRangeIngressField.clear();
+        maxRangeIngressField.clear();
+        
+    }
+    
+    @FXML
+    public void addEgressRuleClicked() throws IOException {
+        
+        egressRulesList.add(new EgressRule(ipProtocolEgressChoice.getValue(), destinationCidrEgressField.getText(), statelessEgressChoice.getValue(), minRangeEgressField.getText(), maxRangeEgressField.getText()));
+        
+        destinationCidrEgressField.clear();
+        minRangeEgressField.clear();
+        maxRangeEgressField.clear();
+        
     }
     
     
@@ -52,8 +98,6 @@ public class ControllerSecurityList {
     public void addSecurityListClicked(ActionEvent event) throws IOException {
         Parent networkParent = FXMLLoader.load(getClass().getResource("view/SecurityList.fxml"));
         Scene securityListScene = new Scene(networkParent);
-        
-        
         
         allSecurityLists.add(new SecurityList(securityListNameField.getText()));
         
@@ -67,25 +111,22 @@ public class ControllerSecurityList {
                     "resource \"oci_core_security_list\" \"" + securityListNameField.getText() + "\" {\n" + 
                     "  compartment_id = \"${var.compartment_id}\"\n" + 
                     "  display_name = \"" + securityListNameField.getText() + "\"\n" + 
-                    "  vcn_id = \"${oci_core_virtual_network." + ControllerNetwork.getVcn() + ".id}\"\n" + 
-                    "  ingress_security_rules = [\n" + 
-                    "    {\n" + 
-                    "    protocol = \"all\"\n" + 
-                    "    source = \"${var.VCN-CIDR}\"\n" + 
-                    "    }\n" + 
-                    "  ]\n" + 
-                    "  egress_security_rules = [\n" + 
-                    "    {\n" + 
-                    "    protocol = \"all\"\n" + 
-                    "    destination = \"0.0.0.0/0\"\n" + 
-                    "    }\n" + 
-                    "  ]\n" + 
-                    "}\n" + 
-                    "\n" + 
-                    "");
+                    "  vcn_id = \"${oci_core_virtual_network." + ControllerNetwork.getVcn() + ".id}\"\n\n" 
+                    );
+            
+            for(IngressRule ir : ingressRulesList) {
+                writer.write(ir.toString());
+            }
+            
+            for(EgressRule er : egressRulesList) {
+                writer.write(er.toString());
+            }
+            
+            writer.write("} \n");
             
         }
     }
+
     /*
     public void protocolString(String ipProtocol) {
         if (ipProtocolIngressChoice.getValue() == ipProtocolslist.get(0)) {

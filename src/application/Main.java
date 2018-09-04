@@ -34,6 +34,7 @@ public class Main extends Application {
 			
 			File terraform_basic = new File("cluster-config");
 			terraform_basic.mkdir();
+			GenFiles.generateFiles();
 			
 			
 		} catch(Exception e) {

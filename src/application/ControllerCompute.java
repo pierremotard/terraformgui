@@ -77,8 +77,7 @@ public class ControllerCompute {
                     "    ssh_authorized_keys = \"${file(var.ssh_public_key_path)}\"\n" + 
                     "  }\n" + 
                     "\n" + 
-                    " }\n\n" + 
-                    "}");
+                    "}\n");
             
         }
         
