@@ -127,16 +127,6 @@ public class ControllerSecurityList {
         }
     }
 
-    /*
-    public void protocolString(String ipProtocol) {
-        if (ipProtocolIngressChoice.getValue() == ipProtocolslist.get(0)) {
-            egressButton.setDisable(true);
-        } else {
-            egressButton.setDisable(false);
-        }
-    }
-    */
-    
     @FXML
     public void nextButtonClicked(ActionEvent event) throws IOException {
         Parent securityParent = FXMLLoader.load(getClass().getResource("view/Subnet.fxml"));

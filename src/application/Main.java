@@ -15,17 +15,11 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
-
-    
-    public static int nbSubnets = 0;
-    
-    
-    
     
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-		    Parent root = FXMLLoader.load(getClass().getResource("view/Auth.fxml"));
+		    Parent root = FXMLLoader.load(getClass().getResource("view/Menu.fxml"));
 		    primaryStage.setTitle("Terraform GUI");
 			Scene scene = new Scene(root,800,500);
 
