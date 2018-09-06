@@ -1,9 +1,6 @@
 package application.addComponentController;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-
 import application.Controller;
 import application.Instance;
 import javafx.collections.FXCollections;
@@ -58,7 +55,7 @@ public class AddInstanceController extends Controller {
                 "\n" + 
                 "}\n";
         
-        super.addComponentClicked(event, text, "../view/BlockVolume.fxml");
+        super.addComponentClicked(event, text, "../view/AddInstanceController.fxml");
         
         instanceList.add(new Instance(instanceNameField.getText(), shapeChoice.getValue()));
         
@@ -77,7 +74,7 @@ public class AddInstanceController extends Controller {
     }
     
     public void menuButtonClicked(ActionEvent event) throws IOException {
-        super.nextClicked(event, "../view/Final.fxml");
+        super.nextClicked(event, "../view/AddComp.fxml");
     }
     
 

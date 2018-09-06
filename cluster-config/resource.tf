@@ -148,3 +148,29 @@ resource "oci_core_security_list" "sl" {
   }
 
 } 
+resource "oci_core_subnet" "subnetadded" {
+  availability_domain = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[var.AD - 1],"name")}"
+  prohibit_public_ip_on_vnic = true
+  cidr_block = "${var.subnetadded-CIDR}"
+  display_name = "subnetadded"
+  dns_label = "dns"
+  compartment_id = "${var.compartment_id}"
+  vcn_id = "${oci_core_virtual_network.null.id}"
+  route_table_id = "${oci_core_route_table.routetable.id}"
+  security_list_ids = ["${oci_core_security_list.sl-workers.id}"]
+  dhcp_options_id = "${oci_core_virtual_network.null.default_dhcp_options_id}"
+}
+
+resource "oci_core_instance" "instwind" {
+  availability_domain = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[var.AD - 1],"name")}"
+  compartment_id = "${var.compartment_id}"
+  display_name = "instwind"
+  hostname_label = "instwind"
+  image = "${lookup(data.oci_core_images.WS2012gen1ImageOCID.images[0], "id")}"
+  shape = "VM.Standard1.1"
+  subnet_id = "${oci_core_subnet.subnetadded.id}"
+  metadata {
+    ssh_authorized_keys = "${file(var.ssh_public_key_path)}"
+  }
+
+}
