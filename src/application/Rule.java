@@ -40,4 +40,5 @@ public abstract class Rule {
         else
             return 0;
     }
+  
 }

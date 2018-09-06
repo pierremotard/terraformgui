@@ -57,3 +57,94 @@ resource "oci_core_security_list" "sl-workers" {
   }
 
 } 
+
+resource "oci_core_security_list" "sl-lb" {
+  compartment_id = "${var.compartment_id}"
+  display_name = "sl-lb"
+  vcn_id = "${oci_core_virtual_network.null.id}"
+
+0"   // all
+    source = "9999"
+    stateless = false
+
+    all_options {
+      source_port_range {
+        "min" = null
+        "max" = null
+      }
+    }
+  }
+
+6"   // tcp
+    source = "0.0.0.0"
+    stateless = true
+
+    tcp_options {
+      source_port_range {
+        "min" = 22
+        "max" = 22
+      }
+    }
+  }
+
+} 
+
+resource "oci_core_security_list" "sl-lb2" {
+  compartment_id = "${var.compartment_id}"
+  display_name = "sl-lb2"
+  vcn_id = "${oci_core_virtual_network.null.id}"
+
+  ingress_security_rules {
+    protocol = "all
+    source = "0000"
+    stateless = false
+
+    all_options {
+      source_port_range {
+        "min" = null
+        "max" = null
+      }
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "6"   // tcp
+    source = "0000"
+    stateless = true
+
+    tcp_options {
+      source_port_range {
+        "min" = 22
+        "max" = 22
+      }
+    }
+  }
+
+} 
+
+resource "oci_core_security_list" "sl" {
+  compartment_id = "${var.compartment_id}"
+  display_name = "sl"
+  vcn_id = "${oci_core_virtual_network.null.id}"
+
+  egress_security_rules {
+    protocol  = "all"
+    destination = ""
+    stateless = true
+
+  }
+
+  egress_security_rules {
+    protocol  = "6"   // tcp
+    destination = ""
+    stateless = false
+
+    tcp_options {
+      destination_port_range {
+        "min" = 22
+        "max" = 22
+      }
+    }
+  }
+
+} 

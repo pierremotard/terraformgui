@@ -21,17 +21,22 @@ public final class EgressRule extends Rule {
     
     
     public String toString() {
-        return  "  egress_security_rules {\n" + 
-                "    protocol  = \"" + getNbProtocol(getProtocol()) + "\"   // " + getProtocol() + "\n" + 
-                "    destination = \"" + destination  + "\"\n" + 
-                "    stateless = " + getStateless() + "\n" + 
-                "\n" + 
-                "    " + getProtocol() + "_options {\n" + 
+        String protocol = getProtocol() == "all" ? getProtocol() + "\"" : getNbProtocol(getProtocol()) + "\"   // " + getProtocol();
+        
+        //No options if all protocols
+        String options = getProtocol() == "all" ? "" :  
+            "    " + getProtocol() + "_options {\n" + 
                 "      destination_port_range {\n" + 
                 "        \"min\" = " + min_range + "\n" + 
                 "        \"max\" = " + max_range + "\n" + 
                 "      }\n" + 
-                "    }\n" + 
+                "    }\n";
+        
+        return  "  egress_security_rules {\n" + 
+                "    protocol  = \"" + protocol + "\n" + 
+                "    destination = \"" + destination  + "\"\n" + 
+                "    stateless = " + getStateless() + "\n" + 
+                "\n" + options +
                 "  }\n\n";
     }
 }
