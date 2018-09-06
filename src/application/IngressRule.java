@@ -6,20 +6,17 @@ public final class IngressRule extends Rule {
     private String min_range;
     private String max_range;
     
-    public IngressRule(String protocol, String source, boolean stateless, String min_range, String max_range) {
+    public IngressRule(String protocol, boolean stateless, String source) {
+        super(protocol, stateless);
+        this.source = source;
+    }
+    
+    public IngressRule(String protocol, boolean stateless, String source, String min_range, String max_range) {
         super(protocol, stateless);
         this.source = source;
         this.min_range = min_range;
         this.max_range = max_range;
     }
-    /*
-    public IngressRule(String protocol, String source, boolean stateless) {
-        super(protocol, stateless);
-        this.source = source;
-    }
-    */
-    
-    
     
     public String toString() {
         return  "  ingress_security_rules {\n" + 

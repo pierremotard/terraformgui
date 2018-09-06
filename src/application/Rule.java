@@ -5,13 +5,8 @@ public abstract class Rule {
     private String protocol;
     private boolean stateless;
     
-    
-    public Rule(String protocol) {
-        this.setProtocol(protocol);
-    }
-    
-    public Rule(String protocol,boolean stateless) {
-        this.protocol = protocol;;
+    public Rule(String protocol, boolean stateless) {
+        this.protocol = protocol;
         this.stateless = stateless;
     }
     
@@ -19,21 +14,20 @@ public abstract class Rule {
         return "";
     }
 
-    protected boolean getStateless() {
-        return stateless;
-    }
-
-    public void setStateless(boolean stateless) {
-        this.stateless = stateless;
-    }
-
-
     public String getProtocol() {
         return protocol;
     }
 
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+    
+    public boolean getStateless() {
+        return stateless;
+    }
+
+    public void setStateless(boolean stateless) {
+        this.stateless = stateless;
     }
     
     public int getNbProtocol(String protocol) {

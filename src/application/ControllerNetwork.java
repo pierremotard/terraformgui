@@ -16,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ControllerNetwork {
+public class ControllerNetwork extends Controller {
 
     public ControllerNetwork() {
         // TODO Auto-generated constructor stub
@@ -31,51 +31,46 @@ public class ControllerNetwork {
     private static String vcnName;
     
     public void nextButtonClicked(ActionEvent event) throws IOException {
-        Parent networkParent = FXMLLoader.load(getClass().getResource("view/SecurityList.fxml"));
-        Scene securityListScene = new Scene(networkParent);
+        String text = "# Create a new VCN\n" + 
+                "resource \"oci_core_virtual_network\" \"" + vcnField.getText() + "\" {\n" + 
+                "  cidr_block = \"${var.VCN-CIDR}\"\n" + 
+                "  compartment_id = \"${var.compartment_id}\"\n" + 
+                "  display_name = \"" + vcnField.getText() + "\"\n" + 
+                "  dns_label = \"" + dnsLabelField.getText() + "\"\n" + 
+                "}\n" + 
+                "\n" + 
+                "# Create a new Internet Gateway\n" + 
+                "resource \"oci_core_internet_gateway\" \"" + gatewayField.getText() + "\" {\n" + 
+                "  compartment_id = \"${var.compartment_id}\"\n" + 
+                "  display_name = \"" + gatewayField.getText() + "\"\n" + 
+                "  vcn_id = \"${oci_core_virtual_network." + vcnField.getText() + ".id}\"\n" + 
+                "}\n" + 
+                "\n" + 
+                "# Create a new Route Table\n" + 
+                "resource \"oci_core_route_table\" \"" + routeTableField.getText() + "\" {\n" + 
+                "  compartment_id = \"${var.compartment_id}\"\n" + 
+                "  vcn_id = \"${oci_core_virtual_network." + vcnField.getText() + ".id}\"\n" + 
+                "  display_name = \" " + routeTableField.getText() + "\"\n" + 
+                "  route_rules {\n" + 
+                "    cidr_block = \"0.0.0.0/0\"\n" + 
+                "    network_entity_id = \"${oci_core_internet_gateway." + gatewayField.getText() + ".id}\"\n" + 
+                "  }\n" + 
+                "}\n\n";
         
-        // Gets stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(securityListScene);
-        window.show();
+        // Delete the content of resource file if not empty
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("cluster-config/resource.tf"), "utf-8"))){
+        }
+        
+        super.addComponentClicked(event, text, "view/SecurityList.fxml");
+        
+        
         
         vcnName = vcnField.getText();
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/vars-values.auto.tfvars", true))) {
             writer.write("VCN-CIDR = \"" + vcnCidrField.getText() + "\" \n");
         }
-        
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("cluster-config/resource.tf"), "utf-8"))) {
-            writer.write("# Create a new VCN\n" + 
-                    "resource \"oci_core_virtual_network\" \"" + vcnField.getText() + "\" {\n" + 
-                    "  cidr_block = \"${var.VCN-CIDR}\"\n" + 
-                    "  compartment_id = \"${var.compartment_id}\"\n" + 
-                    "  display_name = \"" + vcnField.getText() + "\"\n" + 
-                    "  dns_label = \"" + dnsLabelField.getText() + "\"\n" + 
-                    "}\n" + 
-                    "\n" + 
-                    "# Create a new Internet Gateway\n" + 
-                    "resource \"oci_core_internet_gateway\" \"" + gatewayField.getText() + "\" {\n" + 
-                    "  compartment_id = \"${var.compartment_id}\"\n" + 
-                    "  display_name = \"" + gatewayField.getText() + "\"\n" + 
-                    "  vcn_id = \"${oci_core_virtual_network." + vcnField.getText() + ".id}\"\n" + 
-                    "}\n" + 
-                    "\n" + 
-                    "# Create a new Route Table\n" + 
-                    "resource \"oci_core_route_table\" \"" + routeTableField.getText() + "\" {\n" + 
-                    "  compartment_id = \"${var.compartment_id}\"\n" + 
-                    "  vcn_id = \"${oci_core_virtual_network." + vcnField.getText() + ".id}\"\n" + 
-                    "  display_name = \" " + routeTableField.getText() + "\"\n" + 
-                    "  route_rules {\n" + 
-                    "    cidr_block = \"0.0.0.0/0\"\n" + 
-                    "    network_entity_id = \"${oci_core_internet_gateway." + gatewayField.getText() + ".id}\"\n" + 
-                    "  }\n" + 
-                    "}\n\n");
-        }
-        
     }
-    
-    
     
     public static String getVcn() {
         return vcnName;

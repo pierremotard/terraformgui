@@ -18,19 +18,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ControllerSecurityList {
+public class ControllerSecurityList extends Controller {
     
     public ControllerSecurityList() {
     }
     
     @FXML private TextField securityListNameField;
-    
     @FXML private ChoiceBox<String> ipProtocolIngressChoice;
     @FXML private TextField sourceCidrIngressField;
     @FXML private ChoiceBox<Boolean> statelessIngressChoice;
     @FXML private TextField minRangeIngressField;
     @FXML private TextField maxRangeIngressField;
-
     
     @FXML private ChoiceBox<String> ipProtocolEgressChoice;
     @FXML private TextField destinationCidrEgressField;
@@ -58,22 +56,23 @@ public class ControllerSecurityList {
         ipProtocolIngressChoice.setValue(ipProtocolslist.get(0));
         ipProtocolIngressChoice.setItems(ipProtocolslist);
         statelessIngressChoice.setItems(statelessList);
+        statelessIngressChoice.setValue(false);
         
        // ipProtocolEgressChoice.setValue(ipProtocolslist.get(0));
         ipProtocolEgressChoice.setItems(ipProtocolslist);
         statelessEgressChoice.setItems(statelessList);
+        statelessEgressChoice.setValue(false);
+
     }
     
     @FXML
     public void addIngressRuleClicked() throws IOException {
-        IngressRule anIR = new IngressRule(ipProtocolIngressChoice.getValue(), sourceCidrIngressField.getText(), statelessIngressChoice.getValue(), minRangeIngressField.getText(), maxRangeIngressField.getText());
-        /*
-        System.out.println(ipProtocolIngressChoice.getValue());
-        System.out.println(sourceCidrIngressField.getText());
-        System.out.println(statelessIngressChoice.getValue());
-        
-        IngressRule anIR = new IngressRule(ipProtocolIngressChoice.getValue(), sourceCidrIngressField.getText(), statelessIngressChoice.getValue());
-        */
+        IngressRule anIR;
+        if(ipProtocolIngressChoice.getValue() != "all") {
+            anIR = new IngressRule(ipProtocolIngressChoice.getValue(), statelessIngressChoice.getValue(), sourceCidrIngressField.getText(), minRangeIngressField.getText(), maxRangeIngressField.getText());
+        } else {
+            anIR = new IngressRule(ipProtocolIngressChoice.getValue(), statelessIngressChoice.getValue(), sourceCidrIngressField.getText());
+        }
         ingressRulesList.add(anIR);
         
         sourceCidrIngressField.clear();
@@ -84,8 +83,13 @@ public class ControllerSecurityList {
     
     @FXML
     public void addEgressRuleClicked() throws IOException {
-        
-        egressRulesList.add(new EgressRule(ipProtocolEgressChoice.getValue(), destinationCidrEgressField.getText(), statelessEgressChoice.getValue(), minRangeEgressField.getText(), maxRangeEgressField.getText()));
+        EgressRule anER;
+        if (ipProtocolEgressChoice.getValue() != "all") {
+            anER = new EgressRule(ipProtocolEgressChoice.getValue(), statelessEgressChoice.getValue(), destinationCidrEgressField.getText(), minRangeEgressField.getText(), maxRangeEgressField.getText());
+        } else {
+            anER = new EgressRule(ipProtocolEgressChoice.getValue(), statelessEgressChoice.getValue(), destinationCidrEgressField.getText());
+        }
+        egressRulesList.add(anER);
         
         destinationCidrEgressField.clear();
         minRangeEgressField.clear();
@@ -96,23 +100,18 @@ public class ControllerSecurityList {
     
     @FXML
     public void addSecurityListClicked(ActionEvent event) throws IOException {
-        Parent networkParent = FXMLLoader.load(getClass().getResource("view/SecurityList.fxml"));
-        Scene securityListScene = new Scene(networkParent);
-        
         allSecurityLists.add(new SecurityList(securityListNameField.getText()));
         
-        // Gets stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(securityListScene);
-        window.show();
+        super.addComponentClicked(event, 
+                "\n" + 
+                "resource \"oci_core_security_list\" \"" + securityListNameField.getText() + "\" {\n" + 
+                "  compartment_id = \"${var.compartment_id}\"\n" + 
+                "  display_name = \"" + securityListNameField.getText() + "\"\n" + 
+                "  vcn_id = \"${oci_core_virtual_network." + ControllerNetwork.getVcn() + ".id}\"\n\n" , 
+                "view/SecurityList.fxml");
+
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/resource.tf", true))) {
-            writer.write("\n" + 
-                    "resource \"oci_core_security_list\" \"" + securityListNameField.getText() + "\" {\n" + 
-                    "  compartment_id = \"${var.compartment_id}\"\n" + 
-                    "  display_name = \"" + securityListNameField.getText() + "\"\n" + 
-                    "  vcn_id = \"${oci_core_virtual_network." + ControllerNetwork.getVcn() + ".id}\"\n\n" 
-                    );
             
             for(IngressRule ir : ingressRulesList) {
                 writer.write(ir.toString());
@@ -129,15 +128,6 @@ public class ControllerSecurityList {
 
     @FXML
     public void nextButtonClicked(ActionEvent event) throws IOException {
-        Parent securityParent = FXMLLoader.load(getClass().getResource("view/Subnet.fxml"));
-        Scene subnetScene = new Scene(securityParent);
-        
-        // Gets stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(subnetScene);
-        window.show();
-        
-        
-        
+        super.nextClicked(event, "view/Subnet.fxml");
     }
 }

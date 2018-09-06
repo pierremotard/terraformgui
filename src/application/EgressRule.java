@@ -6,7 +6,12 @@ public final class EgressRule extends Rule {
     private String min_range;
     private String max_range;
     
-    public EgressRule(String protocol, String destination, boolean stateless, String min_range, String max_range) {
+    public EgressRule(String protocol, boolean stateless, String destination) {
+        super(protocol, stateless);
+        this.destination = destination;
+    }
+    
+    public EgressRule(String protocol,  boolean stateless, String destination, String min_range, String max_range) {
         super(protocol, stateless);
         this.destination = destination;
         this.min_range = min_range;

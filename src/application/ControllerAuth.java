@@ -15,7 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ControllerAuth {
+public class ControllerAuth extends Controller {
 
     public ControllerAuth() {
         // TODO Auto-generated constructor stub
@@ -31,6 +31,28 @@ public class ControllerAuth {
     @FXML private TextField sshPublicField;
     @FXML private TextField sshPrivateField;
     @FXML private TextField vcnCidrField;
+    
+    private String text = "### Authentication details\n" + 
+            "tenancy_ocid = \"\" \n" + 
+            "user_ocid = \"\" \n" + 
+            "fingerprint = \"\" \n" + 
+            "private_key_path = \"\" \n" + 
+            "\n" + 
+            "### Region\n" + 
+            "region = \"\" \n" + 
+            "\n" + 
+            "### Compartment\n" + 
+            "compartment_ocid = \"\" \n" + 
+            "\n" + 
+            "### Current Availability Domain (1, 2 or 3)\n" + 
+            "AD = \"\" \n" + 
+            "\n" + 
+            "### Public/private keys used on the instance\n" + 
+            "ssh_public_key_path = \"\" \n" + 
+            "ssh_private_key_path = \"\" \n" + 
+            "\n" + 
+            "### VCN\n" + 
+            "VCN-CIDR = \"\"";
     
     
     public void nextButtonClicked(ActionEvent event) throws IOException {
