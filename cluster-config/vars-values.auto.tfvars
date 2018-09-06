@@ -1,11 +1,11 @@
 ### Authentication details
-tenancy_ocid = "user" 
-user_ocid = "dedeb" 
+tenancy_ocid = "tenancydelete" 
+user_ocid = "" 
 fingerprint = "" 
 private_key_path = "" 
 
 ### Region
-region = "sz" 
+region = "" 
 
 ### Compartment
 compartment_ocid = "" 
@@ -19,4 +19,3 @@ ssh_private_key_path = ""
 
 ### VCN
 VCN-CIDR = "" 
-subnet1-CIDR = "" 
