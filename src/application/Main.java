@@ -26,7 +26,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
-			File terraform_basic = new File("cluster-config");
+			File terraform_basic = new File("infra-config");
 			terraform_basic.mkdir();
 			GenFiles.generateFiles();
 			

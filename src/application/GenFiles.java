@@ -7,7 +7,7 @@ import java.io.IOException;
 public class GenFiles {
 
     public static void generateFiles() throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/data.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/data.tf", false))) {
             writer.write(
                     "# Gets a list of Availability Domains\n" + 
                     "data \"oci_identity_availability_domains\" \"ADs\" {\n" + 
@@ -56,7 +56,7 @@ public class GenFiles {
             
         }
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/db.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/db.tf", false))) {
             writer.write(
                     "# Create OCI DB System\n" + 
                     "\n" + 
@@ -118,27 +118,16 @@ public class GenFiles {
         }
         
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/output.tf", true))) {
-            writer.write(
-                    "# Display the output data \n" + 
-                    "output \" Public IP of bastion instance \" {\n" + 
-                    "  value = [\"${oci_core_instance.tf-demo01-bastion.public_ip}\"]\n" + 
-                    "}\n" + 
-                    "output \" Private IP of app server instance \" {\n" + 
-                    "  value = [\"${oci_core_instance.tf-demo01-amosapp.private_ip}\"]\n" + 
-                    "}\n" + 
-                    "output \" Public IP of citrix instance \" {\n" + 
-                    "  value = [\"${oci_core_instance.tf-demo01-citrix.public_ip}\"]\n" + 
-                    "}\n" + 
-                    "output \"Windows Username\" {\n" + 
-                    "  value = [\"${data.oci_core_instance_credentials.InstanceCredentials.username}\"]\n" + 
-                    "}\n" + 
-                    "output \"Temporary Windows Password\" {\n" + 
-                    "  value = [\"${data.oci_core_instance_credentials.InstanceCredentials.password}\"]\n" + 
-                    "}");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/output.tf", false))) {
+            writer.write("# Display the output data \n");
+            for(Instance instance : ControllerCompute.getInstanceList()) {
+                writer.write("\"output \\\" Public IP of " + instance.getName() + " \\\" {\\n\" + \n" + 
+                        "                    \"  value = [\\\"${oci_core_instance." + instance.getName() + ".public_ip}\\\"]\\n\" + \n" + 
+                        "                    \"}\\n\"");
+            }
         }
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/provider.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/provider.tf", false))) {
             writer.write(
                     "provider \"oci\" {\n" + 
                     "  tenancy_ocid     = \"${var.tenancy_ocid}\"\n" + 
@@ -150,7 +139,7 @@ public class GenFiles {
                     "");
         }
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/vars.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars.tf", false))) {
             writer.write(
                     "########### COMMON VARIABLES ##########################\n" + 
                     "\n" + 
@@ -182,7 +171,7 @@ public class GenFiles {
                     "variable \"VCN-CIDR\" {}");
         }
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/provider.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/provider.tf", false))) {
             writer.write(
                     "provider \"oci\" {\n" + 
                     "  tenancy_ocid     = \"${var.tenancy_ocid}\"\n" + 

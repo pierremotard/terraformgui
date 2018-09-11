@@ -68,7 +68,7 @@ public class ControllerSubnet extends Controller {
                         cidrBlockField.getText(), securityListChoice.getValue()));
         */
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/vars-values.auto.tfvars", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars-values.auto.tfvars", true))) {
             writer.write(subnetNameField.getText() + "-CIDR = \"" + cidrBlockField.getText() + "\" \n");
         }
         

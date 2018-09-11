@@ -28,7 +28,7 @@ public abstract class Controller {
         window.setScene(instanceScene);
         window.show();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/resource.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/resource.tf", true))) {
             writer.write(text);
         }
         

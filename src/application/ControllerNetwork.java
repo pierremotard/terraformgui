@@ -58,7 +58,7 @@ public class ControllerNetwork extends Controller {
                 "}\n\n";
         
         // Delete the content of resource file if not empty
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("cluster-config/resource.tf"), "utf-8"))){
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("infra-config/resource.tf"), "utf-8"))){
         }
         
         super.addComponentClicked(event, text, "view/SecurityList.fxml");
@@ -67,7 +67,7 @@ public class ControllerNetwork extends Controller {
         
         vcnName = vcnField.getText();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/vars-values.auto.tfvars", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars-values.auto.tfvars", true))) {
             writer.write("VCN-CIDR = \"" + vcnCidrField.getText() + "\" \n");
         }
     }

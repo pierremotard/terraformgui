@@ -32,28 +32,6 @@ public class ControllerAuth extends Controller {
     @FXML private TextField sshPrivateField;
     @FXML private TextField vcnCidrField;
     
-    private String text = "### Authentication details\n" + 
-            "tenancy_ocid = \"\" \n" + 
-            "user_ocid = \"\" \n" + 
-            "fingerprint = \"\" \n" + 
-            "private_key_path = \"\" \n" + 
-            "\n" + 
-            "### Region\n" + 
-            "region = \"\" \n" + 
-            "\n" + 
-            "### Compartment\n" + 
-            "compartment_ocid = \"\" \n" + 
-            "\n" + 
-            "### Current Availability Domain (1, 2 or 3)\n" + 
-            "AD = \"\" \n" + 
-            "\n" + 
-            "### Public/private keys used on the instance\n" + 
-            "ssh_public_key_path = \"\" \n" + 
-            "ssh_private_key_path = \"\" \n" + 
-            "\n" + 
-            "### VCN\n" + 
-            "VCN-CIDR = \"\"";
-    
     
     public void nextButtonClicked(ActionEvent event) throws IOException {
         Parent authParent = FXMLLoader.load(getClass().getResource("view/Network.fxml"));
@@ -64,7 +42,7 @@ public class ControllerAuth extends Controller {
         window.setScene(networkScene);
         window.show();
         
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("cluster-config/vars-values.auto.tfvars"), "utf-8"))) {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("infra-config/vars-values.auto.tfvars"), "utf-8"))) {
             writer.write("### Authentication details" + "\n");
             writer.write("tenancy_ocid = \"" + getTenancy() + "\" \n");
             writer.write("user_ocid = \"" + getUser() + "\" \n");

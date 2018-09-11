@@ -103,7 +103,7 @@ public class ControllerSecurityList extends Controller {
                 "view/SecurityList.fxml");
 
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cluster-config/resource.tf", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/resource.tf", true))) {
             
             for(IngressRule ir : ingressRulesList) {
                 writer.write(ir.toString());

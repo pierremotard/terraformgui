@@ -1,5 +1,5 @@
 ### Authentication details
-tenancy_ocid = "tenancydelete" 
+tenancy_ocid = "" 
 user_ocid = "" 
 fingerprint = "" 
 private_key_path = "" 
@@ -19,3 +19,4 @@ ssh_private_key_path = ""
 
 ### VCN
 VCN-CIDR = "" 
+-CIDR = "" 
