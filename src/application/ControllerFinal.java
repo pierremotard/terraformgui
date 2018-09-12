@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControllerFinal {
@@ -19,6 +20,7 @@ public class ControllerFinal {
     @FXML Label nbSecLists;
     @FXML Label nbInstances;
     @FXML Label nbBlockVolumes;
+    @FXML Text nameSubnets;
     
     @FXML
     public void initialize() {
@@ -27,6 +29,7 @@ public class ControllerFinal {
         nbSecLists.setText(Integer.toString(ControllerSecurityList.allSecurityLists.size()));
         nbInstances.setText(Integer.toString(ControllerCompute.getInstanceList().size()));
         nbBlockVolumes.setText(Integer.toString(ControllerBlockVolume.bvList.size()));
+        
     }
     
     

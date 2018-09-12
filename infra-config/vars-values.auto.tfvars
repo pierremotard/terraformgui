@@ -19,4 +19,3 @@ ssh_private_key_path = ""
 
 ### VCN
 VCN-CIDR = "" 
--CIDR = "" 
