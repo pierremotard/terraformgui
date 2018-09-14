@@ -32,6 +32,9 @@ public class ControllerSecurityList extends Controller {
     @FXML private Label optionIngress;
     @FXML private Label option1Ingress;
     @FXML private Label option2Ingress;
+    @FXML private Label optionEgress;
+    @FXML private Label option1Egress;
+    @FXML private Label option2Egress;
     
     
     public static ObservableList<SecurityList> allSecurityLists = FXCollections.observableArrayList();
@@ -60,8 +63,6 @@ public class ControllerSecurityList extends Controller {
         statelessEgressChoice.setItems(statelessList);
         statelessEgressChoice.setValue(false);
         
-        
-
     }
     
     @FXML
@@ -79,6 +80,21 @@ public class ControllerSecurityList extends Controller {
             option1Ingress.setText("Min");
             option2Ingress.setText("Max");
         }
+        
+        if (ipProtocolEgressChoice.getValue() == "icmp") {
+            optionEgress.setText("Code and Type options");
+            option1Egress.setText("Code");
+            option2Egress.setText("Type");
+        } else if (ipProtocolEgressChoice.getValue() == "all") {
+            optionEgress.setText("No options for all protocols");
+            option1Egress.setText("");
+            option2Egress.setText("");
+        } else {
+            optionEgress.setText("Port range options");
+            option1Egress.setText("Min");
+            option2Egress.setText("Max");
+        }
+        
     }
     
     @FXML

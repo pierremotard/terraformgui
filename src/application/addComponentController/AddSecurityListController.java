@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class AddSecurityListController extends Controller {
@@ -35,6 +36,13 @@ public class AddSecurityListController extends Controller {
     @FXML private TextField minRangeEgressField;
     @FXML private TextField maxRangeEgressField;
     
+    @FXML private Label optionIngress;
+    @FXML private Label option1Ingress;
+    @FXML private Label option2Ingress;
+    @FXML private Label optionEgress;
+    @FXML private Label option1Egress;
+    @FXML private Label option2Egress;
+    
     
     public static ObservableList<SecurityList> allSecurityLists = FXCollections.observableArrayList();
     
@@ -45,7 +53,7 @@ public class AddSecurityListController extends Controller {
     public ObservableList<IngressRule> ingressRulesList = FXCollections.observableArrayList();
     public ObservableList<EgressRule> egressRulesList = FXCollections.observableArrayList();
     
-    public static ObservableList<String> ipProtocolslist = FXCollections.observableArrayList("all", "tcp", "udp", "imcp");
+    public static ObservableList<String> ipProtocolslist = FXCollections.observableArrayList("all", "tcp", "udp", "icmp");
     public static ObservableList<Boolean> statelessList = FXCollections.observableArrayList(true, false);
 
     
@@ -57,10 +65,42 @@ public class AddSecurityListController extends Controller {
         statelessIngressChoice.setItems(statelessList);
         statelessIngressChoice.setValue(false);
         
-       // ipProtocolEgressChoice.setValue(ipProtocolslist.get(0));
+        ipProtocolEgressChoice.setValue(ipProtocolslist.get(0));
         ipProtocolEgressChoice.setItems(ipProtocolslist);
         statelessEgressChoice.setItems(statelessList);
         statelessEgressChoice.setValue(false);
+    }
+    
+    @FXML
+    public void initOptions() {
+        if (ipProtocolIngressChoice.getValue() == "icmp") {
+            optionIngress.setText("Code and Type options");
+            option1Ingress.setText("Code");
+            option2Ingress.setText("Type");
+        } else if (ipProtocolIngressChoice.getValue() == "all") {
+            optionIngress.setText("No options for all protocols");
+            option1Ingress.setText("");
+            option2Ingress.setText("");
+        } else {
+            optionIngress.setText("Port range options");
+            option1Ingress.setText("Min");
+            option2Ingress.setText("Max");
+        }
+        
+        if (ipProtocolEgressChoice.getValue() == "icmp") {
+            optionEgress.setText("Code and Type options");
+            option1Egress.setText("Code");
+            option2Egress.setText("Type");
+        } else if (ipProtocolEgressChoice.getValue() == "all") {
+            optionEgress.setText("No options for all protocols");
+            option1Egress.setText("");
+            option2Egress.setText("");
+        } else {
+            optionEgress.setText("Port range options");
+            option1Egress.setText("Min");
+            option2Egress.setText("Max");
+        }
+        
     }
     
     @FXML

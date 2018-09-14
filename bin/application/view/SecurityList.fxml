@@ -79,7 +79,7 @@
                            </GridPane.margin>
                       </Label>
                         
-                      <ChoiceBox fx:id="ipProtocolIngressChoice" prefWidth="150.0" GridPane.columnIndex="1">
+                      <ChoiceBox fx:id="ipProtocolIngressChoice" onMouseMoved="#initOptions" prefWidth="150.0" GridPane.columnIndex="1">
                          <GridPane.margin>
                             <Insets left="25.0" />
                          </GridPane.margin>
@@ -107,28 +107,28 @@
                            </GridPane.margin>
                         </ChoiceBox>
                         
-                        <Label text="Port range options" GridPane.rowIndex="3">
+                        <Label fx:id="optionIngress" text="Options" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </Label>
                         
-                        <Label text="Min" GridPane.rowIndex="4">
+                        <Label fx:id="option1Ingress" text="Min" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="30.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Max" GridPane.rowIndex="5">
+                        <Label fx:id="option2Ingress" text="Max" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="30.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="minRangeIngressField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <TextField fx:id="minRangeIngressField" onMouseMoved="#initOptions" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="25.0" right="25.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="maxRangeIngressField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <TextField fx:id="maxRangeIngressField" onMouseMoved="#initOptions" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="25.0" right="25.0" />
                            </GridPane.margin>
@@ -193,28 +193,28 @@
                            </GridPane.margin>
                         </ChoiceBox>
                         
-                        <Label text="Port range options" GridPane.rowIndex="3">
+                        <Label fx:id="optionEgress" text="Options" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </Label>
                         
-                        <Label text="Min" GridPane.rowIndex="4">
+                        <Label fx:id="option1Egress" text="Min" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="30.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Max" GridPane.rowIndex="5">
+                        <Label fx:id="option2Egress" text="Max" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="30.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="minRangeEgressField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <TextField fx:id="minRangeEgressField" onMouseMoved="#initOptions" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="25.0" right="25.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="maxRangeEgressField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <TextField fx:id="maxRangeEgressField" onMouseMoved="#initOptions" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="25.0" right="25.0" />
                            </GridPane.margin>
