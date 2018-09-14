@@ -53,13 +53,13 @@ public class ControllerAuth extends Controller {
             writer.write("### Compartment" + "\n");
             writer.write("compartment_ocid = \"" + getCompartment() + "\" \n" + "\n");
             writer.write("### Current Availability Domain (1, 2 or 3)" + "\n");
-            writer.write("AD = \"" + ADField.getText() + "\" \n" + "\n");
+            //writer.write("AD = \"" + ADField.getText() + "\" \n" + "\n");
+            writer.write("AD = \"1\" \n" + "\n");
+            writer.write("AD = \"2\" \n" + "\n");
+            writer.write("AD = \"3\" \n" + "\n");
             writer.write("### Public/private keys used on the instance" + "\n");
             writer.write("ssh_public_key_path = \"" + sshPublicField.getText() + "\" \n");
             writer.write("ssh_private_key_path = \"" + sshPrivateField.getText() + "\" \n" + "\n");
-            writer.write("### VCN" + "\n");
-            
-            
         }
         
     }

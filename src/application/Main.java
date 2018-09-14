@@ -1,6 +1,7 @@
 package application;
 	
 import java.io.File;
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
     
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws IOException {
 		try {
 		    Parent root = FXMLLoader.load(getClass().getResource("view/Menu.fxml"));
 		    primaryStage.setTitle("Terraform GUI");
@@ -28,11 +29,13 @@ public class Main extends Application {
 			
 			File terraform_basic = new File("infra-config");
 			terraform_basic.mkdir();
-			GenFiles.generateFiles();
+			
 			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+		    GenFiles.generateFiles();
 		}
 	}
 	

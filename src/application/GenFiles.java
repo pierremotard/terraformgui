@@ -55,7 +55,7 @@ public class GenFiles {
                     "}");
             
         }
-        
+        /*
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/db.tf", false))) {
             writer.write(
                     "# Create OCI DB System\n" + 
@@ -116,6 +116,7 @@ public class GenFiles {
                     "");
             
         }
+        */
         
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/output.tf", false))) {
@@ -167,8 +168,12 @@ public class GenFiles {
                     "variable \"ssh_private_key_path\" {}\n" + 
                     "variable \"ssh_public_key_path\" {}\n" + 
                     "\n" + 
-                    "#VCN\n" + 
-                    "variable \"VCN-CIDR\" {}");
+                    "### VCN\n" + 
+                    "variable \"network_cidrs\" {\n" + 
+                    "  type = \"map\"\n" + 
+                    "\n" + 
+                    "  default = {\n"
+                    );
         }
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/provider.tf", false))) {

@@ -49,7 +49,7 @@ public class ControllerSubnet extends Controller {
         String text = "resource \"oci_core_subnet\" \"" + subnetNameField.getText() + "\" {\n" + 
                 "  availability_domain = \"${lookup(data.oci_identity_availability_domains.ADs.availability_domains[var.AD - " + ADChoice.getValue() + "],\"name\")}\"\n" + 
                 "  prohibit_public_ip_on_vnic = " + prohibitIpChoice.getValue() + "\n" + 
-                "  cidr_block = \"${var." + subnetNameField.getText() + "-CIDR}\"\n" + 
+                "  cidr_block = \"${lookup(var.network_cidrs, \"" + subnetNameField.getText() + "-CIDR\")}\"\n" + 
                 "  display_name = \"" + subnetNameField.getText() + "\"\n" + 
                 "  dns_label = \"" + dnsLabelField.getText() + "\"\n" + 
                 "  compartment_id = \"${var.compartment_id}\"\n" + 
@@ -68,13 +68,16 @@ public class ControllerSubnet extends Controller {
                         cidrBlockField.getText(), securityListChoice.getValue()));
         */
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars-values.auto.tfvars", true))) {
-            writer.write(subnetNameField.getText() + "-CIDR = \"" + cidrBlockField.getText() + "\" \n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars.tf", true))) {
+            writer.write("      " + subnetNameField.getText() + "-CIDR = \"" + cidrBlockField.getText() + "\" \n");
         }
         
     }
     
     public void nextButtonClicked(ActionEvent event) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars.tf", true))) {
+            writer.write("  }\n" + "}");
+        }
         super.nextClicked(event, "view/Compute.fxml");
         
         

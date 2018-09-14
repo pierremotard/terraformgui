@@ -29,11 +29,12 @@ public class ControllerNetwork extends Controller {
     @FXML private TextField routeTableField;
     
     private static String vcnName;
+    private static String vcnCidr;
     
     public void nextButtonClicked(ActionEvent event) throws IOException {
         String text = "# Create a new VCN\n" + 
                 "resource \"oci_core_virtual_network\" \"" + vcnField.getText() + "\" {\n" + 
-                "  cidr_block = \"${var.VCN-CIDR}\"\n" + 
+                "  cidr_block = \"${lookup(var.network_cidrs, \"VCN-CIDR\")}\"\n" + 
                 "  compartment_id = \"${var.compartment_id}\"\n" + 
                 "  display_name = \"" + vcnField.getText() + "\"\n" + 
                 "  dns_label = \"" + dnsLabelField.getText() + "\"\n" + 
@@ -59,6 +60,7 @@ public class ControllerNetwork extends Controller {
         
         // Delete the content of resource file if not empty
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("infra-config/resource.tf"), "utf-8"))){
+            
         }
         
         super.addComponentClicked(event, text, "view/SecurityList.fxml");
@@ -66,10 +68,15 @@ public class ControllerNetwork extends Controller {
         
         
         vcnName = vcnField.getText();
+        vcnCidr = vcnCidrField.getText();
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars-values.auto.tfvars", true))) {
-            writer.write("VCN-CIDR = \"" + vcnCidrField.getText() + "\" \n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("infra-config/vars.tf", true))) {
+            writer.write("     VCN-CIDR = \"" + vcnCidrField.getText() + "\" \n");
         }
+    }
+    
+    public static String getVcnCidr() {
+        return vcnCidr;
     }
     
     public static String getVcn() {

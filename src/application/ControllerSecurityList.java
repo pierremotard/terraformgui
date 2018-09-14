@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class ControllerSecurityList extends Controller {
@@ -28,6 +29,10 @@ public class ControllerSecurityList extends Controller {
     @FXML private TextField minRangeEgressField;
     @FXML private TextField maxRangeEgressField;
     
+    @FXML private Label optionIngress;
+    @FXML private Label option1Ingress;
+    @FXML private Label option2Ingress;
+    
     
     public static ObservableList<SecurityList> allSecurityLists = FXCollections.observableArrayList();
     
@@ -38,7 +43,7 @@ public class ControllerSecurityList extends Controller {
     public ObservableList<IngressRule> ingressRulesList = FXCollections.observableArrayList();
     public ObservableList<EgressRule> egressRulesList = FXCollections.observableArrayList();
     
-    public static ObservableList<String> ipProtocolslist = FXCollections.observableArrayList("all", "tcp", "udp", "imcp");
+    public static ObservableList<String> ipProtocolslist = FXCollections.observableArrayList("all", "tcp", "udp", "icmp");
     public static ObservableList<Boolean> statelessList = FXCollections.observableArrayList(true, false);
 
     
@@ -54,7 +59,26 @@ public class ControllerSecurityList extends Controller {
         ipProtocolEgressChoice.setItems(ipProtocolslist);
         statelessEgressChoice.setItems(statelessList);
         statelessEgressChoice.setValue(false);
+        
+        
 
+    }
+    
+    @FXML
+    public void initOptions() {
+        if (ipProtocolIngressChoice.getValue() == "icmp") {
+            optionIngress.setText("Code and Type options");
+            option1Ingress.setText("Code");
+            option2Ingress.setText("Type");
+        } else if (ipProtocolIngressChoice.getValue() == "all") {
+            optionIngress.setText("No options for all protocols");
+            option1Ingress.setText("");
+            option2Ingress.setText("");
+        } else {
+            optionIngress.setText("Port range options");
+            option1Ingress.setText("Min");
+            option2Ingress.setText("Max");
+        }
     }
     
     @FXML
